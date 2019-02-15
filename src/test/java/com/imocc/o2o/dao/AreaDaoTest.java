@@ -1,0 +1,22 @@
+package com.imocc.o2o.dao;
+
+import com.imocc.o2o.BaseTest;
+import com.imooc.o2o.dao.AreaDao;
+import com.imooc.o2o.entity.Area;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class AreaDaoTest extends BaseTest {
+
+    @Autowired
+    private AreaDao areaDao;
+
+    @Test
+    public void testQueryArea() {
+        List<Area> list = areaDao.queryArea();
+        Assert.assertEquals(2, list.size());
+    }
+}
