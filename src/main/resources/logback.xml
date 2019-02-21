@@ -20,9 +20,9 @@
         <file>${log.filePath}/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件名称 -->
-            <fileNamePattern>${log.filePath}/debug/debug.%{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filePath}/debug/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!-- 文件最大保存历史时间 -->
-            <maxHistory>log.maxHistory</maxHistory>
+            <maxHistory>${log.maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -40,9 +40,9 @@
         <file>${log.filePath}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件名称 -->
-            <fileNamePattern>${log.filePath}/info/info.%{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filePath}/info/info.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!-- 文件最大保存历史时间 -->
-            <maxHistory>log.maxHistory</maxHistory>
+            <maxHistory>${log.maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -60,9 +60,9 @@
         <file>${log.filePath}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件名称 -->
-            <fileNamePattern>${log.filePath}/error/error.%{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>${log.filePath}/error/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <!-- 文件最大保存历史时间 -->
-            <maxHistory>log.maxHistory</maxHistory>
+            <maxHistory>${log.maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
