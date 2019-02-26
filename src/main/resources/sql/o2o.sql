@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2019-02-13 18:05:00
+Date: 2019-02-26 18:22:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,11 +27,13 @@ CREATE TABLE `tb_area` (
   `last_edit_time` datetime DEFAULT NULL,
   PRIMARY KEY (`area_id`),
   UNIQUE KEY `area_name` (`area_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_area
 -- ----------------------------
+INSERT INTO `tb_area` VALUES ('1', '东苑', '2', null, null);
+INSERT INTO `tb_area` VALUES ('2', '西苑', '1', null, null);
 
 -- ----------------------------
 -- Table structure for tb_head_line
@@ -89,11 +91,12 @@ CREATE TABLE `tb_person_info` (
   `create_time` datetime DEFAULT NULL,
   `last_edit_time` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_person_info
 -- ----------------------------
+INSERT INTO `tb_person_info` VALUES ('1', '测试', 'test', 'test', '1', '1', '2', null, null);
 
 -- ----------------------------
 -- Table structure for tb_product
@@ -188,11 +191,12 @@ CREATE TABLE `tb_shop` (
   CONSTRAINT `fk_shop_area` FOREIGN KEY (`area_id`) REFERENCES `tb_area` (`area_id`),
   CONSTRAINT `fk_shop_profile` FOREIGN KEY (`owner_id`) REFERENCES `tb_person_info` (`user_id`),
   CONSTRAINT `fk_shop_shopcate` FOREIGN KEY (`shop_category_id`) REFERENCES `tb_shop_category` (`shop_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_shop
 -- ----------------------------
+INSERT INTO `tb_shop` VALUES ('1', '1', '2', '1', '测试的店铺', '测试描述', '测试地址', 'test', 'test', null, '2019-02-22 13:47:48', '2019-02-25 13:54:53', '1', '审核中');
 
 -- ----------------------------
 -- Table structure for tb_shop_category
@@ -210,11 +214,12 @@ CREATE TABLE `tb_shop_category` (
   PRIMARY KEY (`shop_category_id`),
   KEY `fk_shop_category_self` (`parent_id`),
   CONSTRAINT `fk_shop_category_self` FOREIGN KEY (`parent_id`) REFERENCES `tb_shop_category` (`shop_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_shop_category
 -- ----------------------------
+INSERT INTO `tb_shop_category` VALUES ('1', '咖啡奶茶', '咖啡奶茶', 'test', '1', null, null, null);
 
 -- ----------------------------
 -- Table structure for tb_wechat_auth
