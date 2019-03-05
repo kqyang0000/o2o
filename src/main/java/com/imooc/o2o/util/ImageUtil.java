@@ -56,7 +56,7 @@ public class ImageUtil {
      * @version 1.0
      * @date 2019/2/28 13:17
      */
-    private static String getRandomFileName() {
+    public static String getRandomFileName() {
         // 获取随机的五位数
         int rannum = r.nextInt(89999) + 10000;
         String nowTimeStr = sDateFormat.format(new Date());
