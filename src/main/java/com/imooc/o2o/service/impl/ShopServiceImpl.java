@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.File;
 import java.util.Date;
 
 @Service
@@ -32,7 +33,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, CommonsMultipartFile shopImg) {
+    public ShopExecution addShop(Shop shop, File shopImg) {
         // 空值判断
         if (null == shop) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -50,7 +51,7 @@ public class ShopServiceImpl implements ShopService {
                 if (null != shopImg) {
                     try {
                         // 存储图片
-                        addShopImg(shop, shopImg);
+                        //addShopImg(shop, shopImg);
                     } catch (Exception e) {
                         throw new ShopOperationException("addShopImg error:" + e.getMessage());
                     }

@@ -4,6 +4,8 @@ import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Shop;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.File;
+
 
 public interface ShopService {
     /**
@@ -16,5 +18,5 @@ public interface ShopService {
      * @version 1.0
      * @date 2019/2/28 19:31
      */
-    ShopExecution addShop(Shop shop, CommonsMultipartFile shopImg);
+    ShopExecution addShop(Shop shop, File shopImg);
 }

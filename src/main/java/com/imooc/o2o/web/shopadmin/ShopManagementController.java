@@ -7,6 +7,8 @@ import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.enums.ShopStateEnum;
 import com.imooc.o2o.service.ShopService;
 import com.imooc.o2o.util.HttpServletRequestUtil;
+import com.imooc.o2o.util.ImageUtil;
+import com.imooc.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +64,7 @@ public class ShopManagementController {
             PersonInfo owner = new PersonInfo();
             owner.setUserId(1L);
             shop.setOwner(owner);
-            /*File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+            File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
             try {
                 shopImgFile.createNewFile();
             } catch (IOException e) {
@@ -75,8 +78,8 @@ public class ShopManagementController {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());
                 return modelMap;
-            }*/
-            ShopExecution se = shopService.addShop(shop, shopImg);
+            }
+            ShopExecution se = shopService.addShop(shop, shopImgFile);
             if (se.getState() == ShopStateEnum.CHECK.getState()) {
                 modelMap.put("success", true);
             } else {
