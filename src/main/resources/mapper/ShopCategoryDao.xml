@@ -14,6 +14,9 @@
         parent_id
         FROM tb_shop_category
         <where>
+            <if test="shopCategoryCondition != null">
+                AND parent_id IS NOT NULL
+            </if>
             <if test="shopCategoryCondition.parent != null">
                 AND parent_id = #{shopCategoryCondition.parent.shopCategoryId}
             </if>

@@ -4,6 +4,7 @@ import com.imocc.o2o.BaseTest;
 import com.imooc.o2o.dao.ShopCategoryDao;
 import com.imooc.o2o.entity.ShopCategory;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +15,7 @@ public class ShopCategoryDaoTest extends BaseTest {
     private ShopCategoryDao shopCategoryDao;
 
     @Test
+    @Ignore
     public void testQueryShopCategory(){
         List<ShopCategory> shopCategoryList = shopCategoryDao.queryShopCategory(new ShopCategory());
         Assert.assertEquals(2, shopCategoryList.size());
