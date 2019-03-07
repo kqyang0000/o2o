@@ -22,21 +22,21 @@ $(function () {
         });
     }
 
-    $("submit").click(function () {
+    $("#submit").click(function () {
         var shop = {};
         shop.shopName = $("#shop-name").val();
         shop.shopAddr = $("#shop-addr").val();
         shop.phone = $("#shop-phone").val();
         shop.shopDesc = $("#shop-desc").val();
         shop.shopCategory = {
-            shopCategoryId: $("shop-category").find("option").not(function () {
+            shopCategoryId: $("#shop-category").find("option").not(function () {
                 return !this.selected;
-            }).date("id")
+            }).data("id")
         };
         shop.area = {
-            areaId: $("area").find("option").not(function () {
+            areaId: $("#area").find("option").not(function () {
                 return !this.selected;
-            }).date("id")
+            }).data("id")
         };
         var shopImg = $("#shop-img")[0].files[0];
         var formData = new FormData();
