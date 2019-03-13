@@ -1,12 +1,14 @@
 package com.imocc.o2o.service;
 
 import com.imocc.o2o.BaseTest;
+import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Area;
 import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.entity.ShopCategory;
 import com.imooc.o2o.enums.ShopStateEnum;
 import com.imooc.o2o.service.ShopService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +24,7 @@ public class ShopServiceTest extends BaseTest {
     private ShopService shopService;
 
     @Test
+    @Ignore
     public void testAddShop() throws FileNotFoundException {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -43,5 +46,16 @@ public class ShopServiceTest extends BaseTest {
         File shopImg = new File("C:/Users/SL_ykq/Desktop/file/picture/xiaohuangren.jpg");
         InputStream is = new FileInputStream(shopImg);
         shopService.addShop(shop, is, shopImg.getName());
+    }
+
+    @Test
+    public void testModifyShop() throws FileNotFoundException {
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        shop.setShopName("修改后的点过名称");
+        File shopImg = new File("C:/Users/SL_ykq/Desktop/file/picture/xiaohuangren.jpg");
+        InputStream is = new FileInputStream(shopImg);
+        ShopExecution shopExecution = shopService.modifyShop(shop, is, "new_xiaohuangren.jpg");
+        System.out.println("新的图片地址为：" + shopExecution.getShop().getShopImg());
     }
 }

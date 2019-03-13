@@ -4,7 +4,6 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -88,6 +87,27 @@ public class ImageUtil {
         File dirPath = new File(realFileParentPath);
         if (!dirPath.exists()) {
             dirPath.mkdirs();
+        }
+    }
+
+    /**
+     * <p>storePath 是文件的路径还是目录的路径，如果storePath 是文件的路径则删除该文件，
+     * 如果storePath 是目录路径则删除该目录下的所有文件
+     *
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/3/13 20:12
+     */
+    public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File[] files = fileOrPath.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    files[i].delete();
+                }
+            }
+            fileOrPath.delete();
         }
     }
 

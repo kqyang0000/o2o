@@ -19,6 +19,7 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
+    @Ignore
     public void testInsertShop() {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -53,5 +54,13 @@ public class ShopDaoTest extends BaseTest {
         shop.setLastEditTime(new Date());
         int effectedNum = shopDao.updateShop(shop);
         Assert.assertEquals(1, effectedNum);
+    }
+
+    @Test
+    public void testQueryByShopId() {
+        long shopId = 1;
+        Shop shop = shopDao.queryByShopId(shopId);
+        System.out.println("areaId：" + shop.getArea().getAreaId());
+        System.out.println("areaName：" + shop.getArea().getAreaName());
     }
 }

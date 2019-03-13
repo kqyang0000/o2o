@@ -23,4 +23,29 @@ public interface ShopService {
      * @date 2019/2/28 19:31
      */
     ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+
+    /**
+     * <p>通过店铺Id 获取店铺信息
+     *
+     * @param shopId
+     * @return shop
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/3/13 20:01
+     */
+    Shop getByShopId(long shopId);
+
+    /**
+     * <p>更新店铺信息，包括对图片的处理
+     *
+     * @param shop
+     * @param shopImgInputStream
+     * @param fileName
+     * @return 商铺更新状态
+     * @throws ShopOperationException
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/3/13 20:02
+     */
+    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
 }

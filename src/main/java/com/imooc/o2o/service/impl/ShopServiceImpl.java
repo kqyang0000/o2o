@@ -11,9 +11,7 @@ import com.imooc.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -70,5 +68,42 @@ public class ShopServiceImpl implements ShopService {
         String dest = PathUtil.getShopImagePath(shop.getShopId());
         String shopImgAddr = ImageUtil.generateThumbnai(shopImgInputStream, dest, fileName);
         shop.setShopImg(shopImgAddr);
+    }
+
+    @Override
+    public Shop getByShopId(long shopId) {
+        return shopDao.queryByShopId(shopId);
+    }
+
+    @Transactional
+    @Override
+    public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName)
+            throws ShopOperationException {
+        if (null == shop) {
+            return new ShopExecution(ShopStateEnum.NULL_SHOP);
+        }
+        if (null == shop.getShopId()) {
+            return new ShopExecution(ShopStateEnum.NULL_SHOPID);
+        }
+        try {// 判断是否需要处理图片
+            if (null != shopImgInputStream && null != fileName && !"".equals(fileName)) {
+                Shop tempShop = shopDao.queryByShopId(shop.getShopId());
+                if (null != tempShop.getShopImg()) {
+                    ImageUtil.deleteFileOrPath(tempShop.getShopImg());
+                }
+                addShopImg(shop, shopImgInputStream, fileName);
+            }
+            // 更新店铺信息
+            shop.setLastEditTime(new Date());
+            int effectedNum = shopDao.updateShop(shop);
+            if (effectedNum <= 0) {
+                return new ShopExecution(ShopStateEnum.INNER_ERROR);
+            } else {
+                shop = shopDao.queryByShopId(shop.getShopId());
+                return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+            }
+        } catch (Exception e) {
+            throw new ShopOperationException("modifyShop error:" + e.getMessage());
+        }
     }
 }
