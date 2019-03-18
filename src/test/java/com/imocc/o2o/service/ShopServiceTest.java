@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 public class ShopServiceTest extends BaseTest {
 
@@ -49,6 +50,7 @@ public class ShopServiceTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testModifyShop() throws FileNotFoundException {
         Shop shop = new Shop();
         shop.setShopId(1L);
@@ -57,5 +59,21 @@ public class ShopServiceTest extends BaseTest {
         InputStream is = new FileInputStream(shopImg);
         ShopExecution shopExecution = shopService.modifyShop(shop, is, "new_xiaohuangren.jpg");
         System.out.println("新的图片地址为：" + shopExecution.getShop().getShopImg());
+    }
+
+    @Test
+    public void testQueryShopListAndCount() {
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(1L);
+        shopCondition.setShopCategory(shopCategory);
+        Area area = new Area();
+        area.setAreaId(1);
+        shopCondition.setArea(area);
+        ShopExecution shopExecution = shopService.queryShopList(shopCondition, 1, 2);
+        System.out.println("店铺总数：" + shopExecution.getCount());
     }
 }

@@ -29,13 +29,34 @@
     </resultMap>
 
     <insert id="insertShop" useGeneratedKeys="true" keyColumn="shop_id" keyProperty="shopId">
-        INSERT INTO
-        tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,
-        phone,shop_img,priority,create_time,last_edit_time,enable_status,advice)
-        VALUES
-        (#{owner.userId},#{area.areaId},#{shopCategory.shopCategoryId},#{shopName},
-        #{shopDesc},#{shopAddr},#{phone},#{shopImg},#{priority},#{createTime},#{lastEditTime},
-        #{enableStatus},#{advice})
+        INSERT INTO tb_shop(
+        owner_id,
+        area_id,
+        shop_category_id,
+        shop_name,
+        shop_desc,
+        shop_addr,
+        phone,
+        shop_img,
+        priority,
+        create_time,
+        last_edit_time,
+        enable_status,
+        advice)
+        VALUES (
+        #{owner.userId},
+        #{area.areaId},
+        #{shopCategory.shopCategoryId},
+        #{shopName},
+        #{shopDesc},
+        #{shopAddr},
+        #{phone},
+        #{shopImg},
+        #{priority},
+        #{createTime},
+        #{lastEditTime},
+        #{enableStatus},
+        #{advice})
     </insert>
 
     <update id="updateShop" parameterType="com.imooc.o2o.entity.Shop">
@@ -81,5 +102,77 @@
         s.area_id = a.area_id AND
         s.shop_category_id = sc.shop_category_id AND
         s.shop_id = #{shopId}
+    </select>
+
+    <select id="queryShopList" resultMap="shopMap">
+        SELECT
+        s.shop_id,
+        s.shop_name,
+        s.shop_desc,
+        s.shop_addr,
+        s.phone,
+        s.shop_img,
+        s.priority,
+        s.create_time,
+        s.last_edit_time,
+        s.enable_status,
+        s.advice,
+        a.area_id,
+        a.area_name,
+        sc.shop_category_id,
+        sc.shop_category_name
+        FROM
+        tb_shop s,
+        tb_area a,
+        tb_shop_category sc
+        <where>
+            AND s.area_id = a.area_id AND
+            s.shop_category_id = sc.shop_category_id
+            <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.shopCategoryId">
+                AND s.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+            </if>
+            <if test="null != shopCondition.area and null != shopCondition.area.areaId">
+                AND s.area_id = #{shopCondition.area.areaId}
+            </if>
+            <if test="null != shopCondition.owner and null != shopCondition.owner.userId">
+                AND s.owner_id = #{shopCondition.owner.userId}
+            </if>
+            <if test="null != shopCondition.enableStatus">
+                AND s.enable_status = #{shopCondition.enableStatus}
+            </if>
+            <if test="null != shopCondition.shopName">
+                AND s.shop_name LIKE CONCAT('%',#{shopCondition.shopName},'%')
+            </if>
+        </where>
+        ORDER BY s.priority DESC
+        LIMIT #{rowIndex},#{pageSize}
+    </select>
+
+    <select id="queryShopCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        tb_shop s,
+        tb_area a,
+        tb_shop_category sc
+        <where>
+            AND s.area_id = a.area_id AND
+            s.shop_category_id = sc.shop_category_id
+            <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.shopCategoryId">
+                AND s.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+            </if>
+            <if test="null != shopCondition.area and null != shopCondition.area.areaId">
+                AND s.area_id = #{shopCondition.area.areaId}
+            </if>
+            <if test="null != shopCondition.owner and null != shopCondition.owner.userId">
+                AND s.owner_id = #{shopCondition.owner.userId}
+            </if>
+            <if test="null != shopCondition.enableStatus">
+                AND s.enable_status = #{shopCondition.enableStatus}
+            </if>
+            <if test="null != shopCondition.shopName">
+                AND s.shop_name LIKE CONCAT('%',#{shopCondition.shopName},'%')
+            </if>
+        </where>
     </select>
 </mapper>

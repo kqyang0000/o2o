@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 public class ShopDaoTest extends BaseTest {
 
@@ -57,10 +58,29 @@ public class ShopDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testQueryByShopId() {
         long shopId = 1;
         Shop shop = shopDao.queryByShopId(shopId);
         System.out.println("areaId：" + shop.getArea().getAreaId());
         System.out.println("areaName：" + shop.getArea().getAreaName());
+    }
+
+    @Test
+    public void testQueryShopList() {
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(1L);
+        shopCondition.setShopCategory(shopCategory);
+        Area area = new Area();
+        area.setAreaId(1);
+        shopCondition.setArea(area);
+        List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
+        int count = shopDao.queryShopCount(shopCondition);
+        System.out.println("店铺列表大小：" + shopList.size());
+        System.out.println("店铺总数：" + count);
     }
 }
