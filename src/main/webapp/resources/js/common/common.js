@@ -6,7 +6,7 @@ function changeVerifyCode(img) {
 }
 
 /**
- * 获取URL传入对应参数的值 eg:/o2o/shop/getshopbyid?shopId=1; param:'shopId'; result:return 1
+ * 获取URL传入对应参数的值 eg:/o2o/shopadmin/getshopbyid?shopId=1; param:'shopId'; result:return 1
  * @param name
  * @returns {string}
  */

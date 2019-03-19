@@ -4,10 +4,10 @@
 $(function () {
     var shopId = getQueryString("shopId");
     var isEdit = shopId ? true : false; // true表示修改店铺信息；false表示注册店铺
-    var initUrl = "/o2o/shop/getshopinitinfo";
-    var registerShopUrl = "/o2o/shop/registershop";
-    var shopInfoUrl = "/o2o/shop/getshopbyid?shopId=" + shopId;
-    var editShopUrl = "/o2o/shop/modifyshop";
+    var initUrl = "/o2o/shopadmin/getshopinitinfo";
+    var registerShopUrl = "/o2o/shopadmin/registershop";
+    var shopInfoUrl = "/o2o/shopadmin/getshopbyid?shopId=" + shopId;
+    var editShopUrl = "/o2o/shopadmin/modifyshop";
     if (!isEdit) {
         getShopInitInfo();
     } else {
@@ -94,7 +94,7 @@ $(function () {
                 if (data.success) {
                     $.toast("提交成功!");
                 } else {
-                    $.toast("提交失败!" + data.errMsg);
+                    $.toast("提交失败!" + data.errorMsg);
                 }
                 $("#kaptcha-img").click();
             }

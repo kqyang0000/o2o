@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping("/shopadmin")
 public class ShopManagementController {
 
     @Autowired
@@ -66,7 +66,7 @@ public class ShopManagementController {
             modelMap.put("success", true);
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("errorMsg", e.getMessage());
         }
         return modelMap;
     }
@@ -85,7 +85,7 @@ public class ShopManagementController {
         Map<String, Object> modelMap = new HashMap<>(16);
         if (!CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "输入了错误的验证码");
+            modelMap.put("errorMsg", "输入了错误的验证码");
             return modelMap;
         }
         // 1.接受并转换相应的参数，包括店铺信息以及图片信息
@@ -96,7 +96,7 @@ public class ShopManagementController {
             shop = mapper.readValue(shopStr, Shop.class);
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("errorMsg", e.getMessage());
             return modelMap;
         }
         CommonsMultipartFile shopImg = null;
@@ -107,7 +107,7 @@ public class ShopManagementController {
             shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
         } else {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "上传图片不能为空");
+            modelMap.put("errorMsg", "上传图片不能为空");
             return modelMap;
         }
         // 2.注册店铺
@@ -128,19 +128,19 @@ public class ShopManagementController {
                     request.getSession().setAttribute("shopList", shopList);
                 } else {
                     modelMap.put("success", false);
-                    modelMap.put("errMsg", se.getStateInfo());
+                    modelMap.put("errorMsg", se.getStateInfo());
                 }
             } catch (ShopOperationException e) {
                 modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
+                modelMap.put("errorMsg", e.getMessage());
             } catch (IOException e) {
                 modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
+                modelMap.put("errorMsg", e.getMessage());
             }
             return modelMap;
         } else {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "请输入店铺信息");
+            modelMap.put("errorMsg", "请输入店铺信息");
             return modelMap;
         }
     }
@@ -159,11 +159,11 @@ public class ShopManagementController {
                 modelMap.put("areaList", areaList);
             } catch (Exception e) {
                 modelMap.put("success", false);
-                modelMap.put("errMsg", e.toString());
+                modelMap.put("errorMsg", e.toString());
             }
         } else {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "empty shopId");
+            modelMap.put("errorMsg", "empty shopId");
         }
         return modelMap;
     }
@@ -181,7 +181,7 @@ public class ShopManagementController {
         Map<String, Object> modelMap = new HashMap<>(16);
         if (!CodeUtil.checkVerifyCode(request)) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "输入了错误的验证码");
+            modelMap.put("errorMsg", "输入了错误的验证码");
             return modelMap;
         }
         // 1.接受并转换相应的参数，包括店铺信息以及图片信息
@@ -192,7 +192,7 @@ public class ShopManagementController {
             shop = mapper.readValue(shopStr, Shop.class);
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("errorMsg", e.getMessage());
             return modelMap;
         }
         CommonsMultipartFile shopImg = null;
@@ -215,19 +215,19 @@ public class ShopManagementController {
                     modelMap.put("success", true);
                 } else {
                     modelMap.put("success", false);
-                    modelMap.put("errMsg", se.getStateInfo());
+                    modelMap.put("errorMsg", se.getStateInfo());
                 }
             } catch (ShopOperationException e) {
                 modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
+                modelMap.put("errorMsg", e.getMessage());
             } catch (IOException e) {
                 modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
+                modelMap.put("errorMsg", e.getMessage());
             }
             return modelMap;
         } else {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "请输入店铺id");
+            modelMap.put("errorMsg", "请输入店铺id");
             return modelMap;
         }
     }
@@ -257,7 +257,7 @@ public class ShopManagementController {
             modelMap.put("shopList", se.getShopList());
         } catch (Exception e) {
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.getMessage());
+            modelMap.put("errorMsg", e.getMessage());
         }
         return modelMap;
     }

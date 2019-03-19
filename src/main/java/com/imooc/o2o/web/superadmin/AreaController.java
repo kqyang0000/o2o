@@ -37,7 +37,7 @@ public class AreaController {
         } catch (Exception e) {
             e.printStackTrace();
             modelMap.put("success", false);
-            modelMap.put("errMsg", e.toString());
+            modelMap.put("errorMsg", e.toString());
         }
         logger.error("test error");
         long endTime = System.currentTimeMillis();
