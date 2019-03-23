@@ -1,5 +1,6 @@
 package com.imooc.o2o.web.shopadmin;
 
+import com.imooc.o2o.dto.ProductCategoryExecution;
 import com.imooc.o2o.dto.Result;
 import com.imooc.o2o.entity.ProductCategory;
 import com.imooc.o2o.entity.Shop;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/shopadmin")
 @Controller
@@ -34,6 +37,34 @@ public class ProductCategoryManagementController {
             return new Result<>(false, ps.getState(), ps.getStateInfo());
         }
     }
+
+    @RequestMapping(value = "/addproductcategorys", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> addProductCategorys(@RequestBody List<ProductCategory> productCategoryList,
+                                                    HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>(16);
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        for (ProductCategory productCategory : productCategoryList) {
+            productCategory.setShopId(currentShop.getShopId());
+        }
+        if (null != productCategoryList && productCategoryList.size() > 0) {
+            try {
+                ProductCategoryExecution pe = productCategoryService.batchAddProductCategory(productCategoryList);
+                if (pe.getState() == ProductCategoryStateEnum.SUCCESS.getState()) {
+                    modelMap.put("success", true);
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errorMsg", pe.getStateInfo());
+                }
+            } catch (Exception e) {
+                modelMap.put("success", false);
+                modelMap.put("errorMsg", e.toString());
+                return modelMap;
+            }
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errorMsg", "请至少输入一个商品类别");
+        }
+        return modelMap;
+    }
 }
-
-

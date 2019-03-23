@@ -144,7 +144,7 @@
                 AND s.shop_name LIKE CONCAT('%',#{shopCondition.shopName},'%')
             </if>
         </where>
-        ORDER BY s.priority DESC
+        ORDER BY s.priority DESC,s.shop_id DESC
         LIMIT #{rowIndex},#{pageSize}
     </select>
 

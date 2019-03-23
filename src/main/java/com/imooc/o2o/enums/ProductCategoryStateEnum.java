@@ -3,7 +3,7 @@ package com.imooc.o2o.enums;
 public enum ProductCategoryStateEnum {
     SUCCESS(0, "创建成功"),
     INNER_ERROR(-1001, "操作失败"),
-    EMPTY(-1002, "商品类别信息为空");
+    EMPTY_LIST(-1002, "添加数少于1");
 
     private int state;
     private String stateInfo;
