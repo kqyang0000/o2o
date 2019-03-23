@@ -1,6 +1,7 @@
 package com.imooc.o2o.dao;
 
 import com.imooc.o2o.entity.ProductCategory;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,16 @@ public interface ProductCategoryDao {
      * @date 2019/3/19 13:25
      */
     int batchInsertProductCategory(List<ProductCategory> productCategoryList);
+
+    /**
+     * <p>删除指定商品类别
+     *
+     * @param productCategoryId
+     * @param shopId
+     * @return 删除影响行数
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/3/23 12:45
+     */
+    int deleteProductCategory(@Param("productCategoryId") long productCategoryId, @Param("shopId") long shopId);
 }

@@ -23,7 +23,7 @@ $(function () {
     }
 
     function removeProductCategory(id) {
-        return "<a href='#' class='button delete' data-id='" + id + "'>删除</a>";
+        return "<a class='button delete' data-id='" + (undefined == id ? "" : id) + "'>删除</a>";
     }
 
     $("#new").click(function () {
@@ -59,5 +59,29 @@ $(function () {
                 }
             }
         });
+    });
+
+    $(".product-category-wrap").on('click', '.delete', function () {
+        var productCategoryId = $(this).attr("data-id");
+        if ("" == productCategoryId) {
+            $(this).parent().parent().remove();
+        } else {
+            $.confirm("确定吗?", function () {
+                $.ajax({
+                    url: deleteUrl,
+                    type: "post",
+                    data: {productCategoryId: productCategoryId},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            $.toast("删除成功!");
+                            getList();
+                        } else {
+                            $.toast("删除失败!");
+                        }
+                    }
+                });
+            });
+        }
     });
 });
