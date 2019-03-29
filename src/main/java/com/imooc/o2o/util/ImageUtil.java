@@ -1,5 +1,6 @@
 package com.imooc.o2o.util;
 
+import com.imooc.o2o.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -22,30 +22,59 @@ public class ImageUtil {
     /**
      * <p>处理缩略图，并返回新生成图片的相对值路径
      *
-     * @param thumbnailInputStream
+     * @param imageHolder
      * @param targetAddr
-     * @param fileName
      * @author kqyang
      * @version 1.0
      * @date 2019/2/28 20:07
      */
-    public static String generateThumbnai(InputStream thumbnailInputStream, String targetAddr, String fileName) {
+    public static String generateThumbnai(ImageHolder imageHolder, String targetAddr) {
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(fileName);
+        String extension = getFileExtension(imageHolder.getImageName());
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         logger.debug("current relativeAddr is:" + relativeAddr);
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         logger.debug("current completeAddr is:" + PathUtil.getImgBasePath() + relativeAddr);
         try {
-            Thumbnails.of(thumbnailInputStream)
+            Thumbnails.of(imageHolder.getImage())
                     .size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.5f)
                     .outputQuality(0.8f)
                     .toFile(dest);
         } catch (IOException e) {
             logger.error(e.toString());
-            e.printStackTrace();
+            throw new RuntimeException("创建缩略图失败：" + e.toString());
+        }
+        return relativeAddr;
+    }
+
+    /**
+     * <p>处理商品图片详情，并返回新生成图片的相对值路径
+     *
+     * @param imageHolder
+     * @param targetAddr
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/3/25 23:48
+     */
+    public static String generateNormalImg(ImageHolder imageHolder, String targetAddr) {
+        String realFileName = getRandomFileName();
+        String extension = getFileExtension(imageHolder.getImageName());
+        makeDirPath(targetAddr);
+        String relativeAddr = targetAddr + realFileName + extension;
+        logger.debug("current relativeAddr is:" + relativeAddr);
+        File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+        logger.debug("current completeAddr is:" + PathUtil.getImgBasePath() + relativeAddr);
+        try {
+            Thumbnails.of(imageHolder.getImage())
+                    .size(337, 640)
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.5f)
+                    .outputQuality(0.9f)
+                    .toFile(dest);
+        } catch (IOException e) {
+            logger.error(e.toString());
+            throw new RuntimeException("创建缩略图失败：" + e.toString());
         }
         return relativeAddr;
     }

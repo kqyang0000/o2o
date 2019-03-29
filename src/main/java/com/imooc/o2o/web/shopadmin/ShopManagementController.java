@@ -1,6 +1,7 @@
 package com.imooc.o2o.web.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.imooc.o2o.dto.ImageHolder;
 import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Area;
 import com.imooc.o2o.entity.PersonInfo;
@@ -116,7 +117,8 @@ public class ShopManagementController {
             shop.setOwner(owner);
             ShopExecution se;
             try {
-                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                se = shopService.addShop(shop, imageHolder);
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     // 该用户可以操作的店铺列表
@@ -206,10 +208,13 @@ public class ShopManagementController {
         if (null != shop && null != shop.getShopId()) {
             ShopExecution se;
             try {
+                ImageHolder imageHolder = null;
                 if (null == shopImg) {
-                    se = shopService.modifyShop(shop, null, null);
+                    imageHolder = new ImageHolder(null, null);
+                    se = shopService.modifyShop(shop, imageHolder);
                 } else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                    se = shopService.modifyShop(shop, imageHolder);
                 }
                 if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);
