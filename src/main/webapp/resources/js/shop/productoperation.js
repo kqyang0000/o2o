@@ -11,15 +11,15 @@ $(function () {
     var isEdit = false;
     if (productId) {
         // 若有productId 则为编辑操作
-        getInfo(productId);
+        getInfo();
         isEdit = true;
     } else {
-        getCategory();
         productPostUrl = '/o2o/shopadmin/addproduct';
+        getCategory();
     }
 
     // 获取需要编辑的商品信息，并赋值给表单
-    function getInfo(id) {
+    function getInfo() {
         $.getJSON(infoUrl, function (data) {
             if (data.success) {
                 // 从返回的JSON当中获取product 对象信息，并赋值给表单
@@ -36,7 +36,7 @@ $(function () {
                 // 生成前端的HTML商品类别列表，并默认选择编辑前的商品类别
                 optionArr.map(function (item, index) {
                     var isSelect = optionSelected === item.productCategoryId ? 'selected' : '';
-                    optionHtml += "<option data-value='" + item.productCategoryId + "' '" + isSelect + "'>"
+                    optionHtml += "<option data-value='" + item.productCategoryId + "' " + isSelect + ">"
                         + item.productCategoryName + "</option>";
                 });
                 $("#category").html(optionHtml);

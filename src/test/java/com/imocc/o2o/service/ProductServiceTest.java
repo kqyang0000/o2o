@@ -10,6 +10,7 @@ import com.imooc.o2o.enums.ProductStateEnum;
 import com.imooc.o2o.service.ProductService;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,7 @@ public class ProductServiceTest extends BaseTest {
     private ProductService productService;
 
     @Test
+    @Ignore
     public void testAAddProduct() throws FileNotFoundException {
         Shop shop = new Shop();
         shop.setShopId(1L);
@@ -54,5 +57,34 @@ public class ProductServiceTest extends BaseTest {
         imageList.add(imageHolder2);
         ProductExecution pe = productService.addProduct(product, imageHolder, imageList);
         Assert.assertEquals(ProductStateEnum.SUCCESS.getState(), pe.getState());
+    }
+
+    @Test
+    public void testBModifyProduct() throws IOException {
+        Product product = new Product();
+        ProductCategory productCategory = new ProductCategory();
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        productCategory.setProductCategoryId(5L);
+        product.setProductId(1L);
+        product.setShop(shop);
+        product.setProductCategory(productCategory);
+        product.setProductName("正式的商品");
+        product.setProductDesc("正式的商品详情");
+        File file = new File("C:\\Users\\SL_ykq\\Desktop\\file\\picture\\xiaohuangren.jpg");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ImageHolder imageHolder = new ImageHolder(file.getName(), fileInputStream);
+        File file1 = new File("C:\\Users\\SL_ykq\\Desktop\\file\\picture\\login_1.jpg");
+        FileInputStream fileInputStream1 = new FileInputStream(file1);
+        ImageHolder imageHolder1 = new ImageHolder(file1.getName(), fileInputStream1);
+        File file2 = new File("C:\\Users\\SL_ykq\\Desktop\\file\\picture\\login_2.jpg");
+        FileInputStream fileInputStream2 = new FileInputStream(file2);
+        ImageHolder imageHolder2 = new ImageHolder(file2.getName(), fileInputStream2);
+        List<ImageHolder> imageList = new ArrayList<>(32);
+        imageList.add(imageHolder1);
+        imageList.add(imageHolder2);
+        // 修改商品信息
+        ProductExecution productExecution = productService.modifyProduct(product, imageHolder, imageList);
+        Assert.assertEquals(ProductStateEnum.SUCCESS.getState(), productExecution.getState());
     }
 }
