@@ -109,4 +109,64 @@
         WHERE
         product_id = #{productId} AND shop_id = #{shop.shopId}
     </update>
+
+    <select id="queryProductList" resultType="com.imooc.o2o.entity.Product">
+        SELECT
+        product_id,
+        product_name,
+        product_desc,
+        img_addr,
+        normal_price,
+        promotion_price,
+        priority,
+        create_time,
+        last_edit_time,
+        enable_status,
+        product_category_id,
+        shop_id
+        FROM tb_product
+        <where>
+            <if test="null != productCondition.shop and null != productCondition.shop.shopId">
+                AND shop_id = #{productCondition.shop.shopId}
+            </if>
+            <if test="null != productCondition.productCategory and null != productCondition.productCategory.productCategoryId">
+                AND product_category_id = #{productCondition.productCategory.productCategoryId}
+            </if>
+            <if test="null != productCondition.productName">
+                AND product_name LIKE CONCAT('%',#{productCondition.productName},'%')
+            </if>
+            <if test="null != productCondition.enableStatus">
+                AND enable_status = #{productCondition.enableStatus}
+            </if>
+        </where>
+        ORDER BY priority DESC
+        LIMIT #{rowIndex},#{pageSize}
+    </select>
+
+    <select id="queryProductCount" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM tb_product
+        <where>
+            <if test="null != productCondition.shop and null != productCondition.shop.shopId">
+                AND shop_id = #{productCondition.shop.shopId}
+            </if>
+            <if test="null != productCondition.productCategory and null != productCondition.productCategory.productCategoryId">
+                AND product_category_id = #{productCondition.productCategory.productCategoryId}
+            </if>
+            <if test="null != productCondition.productName">
+                AND product_name LIKE CONCAT('%',#{productCondition.productName},'%')
+            </if>
+            <if test="null != productCondition.enableStatus">
+                AND enable_status = #{productCondition.enableStatus}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateProductCategoryToNull" parameterType="java.lang.Long">
+        DELETE tb_product
+        SET
+        product_category_id = NULL
+        WHERE product_category_id = #{productCategoryId}
+    </update>
 </mapper>

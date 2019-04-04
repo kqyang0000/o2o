@@ -74,6 +74,7 @@ public class ProductDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testDUpdateProduct() {
         long productId = 1L;
         Product product = new Product();
@@ -87,5 +88,15 @@ public class ProductDaoTest extends BaseTest {
         product.setProductCategory(productCategory);
         int effectNum = productDao.updateProduct(product);
         Assert.assertEquals(1, effectNum);
+    }
+
+    @Test
+    public void testCQueryProductList(){
+        Product productCondition = new Product();
+        List<Product> productList = productDao.queryProductList(productCondition, 0, 3);
+        Assert.assertEquals(3, productList.size());
+        productCondition.setProductName("测试1");
+        List<Product> productList2 = productDao.queryProductList(productCondition, 0, 3);
+        Assert.assertEquals(2, productList2.size());
     }
 }

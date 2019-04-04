@@ -238,4 +238,64 @@ public class ProductManagementController {
         }
         return thumbnail;
     }
+
+    /**
+     * <p>通过店铺id 获取现铺下的商品列表
+     *
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/4/3 0:41
+     */
+    @RequestMapping(value = "/getproductlistbyshop", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getProductListByShop(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<>(16);
+        // 获取前台传过来的页码
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+        // 获取前台传过来的每页要求返回的商品数上限
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        // 从当前session 中获取店铺信息
+        Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+        if (pageIndex > -1 && pageSize > -1 && null != currentShop && null != currentShop.getShopId()) {
+            // 获取前台筛选条件
+            long productCategoryId = HttpServletRequestUtil.getLong(request, "productCategoryId");
+            String productName = HttpServletRequestUtil.getString(request, "productName");
+            Product productCondition = compactProductCondition(currentShop.getShopId(), productCategoryId, productName);
+            // 获取分页后的商品列表及总数
+            ProductExecution pe = productService.getProductList(productCondition, pageIndex, pageSize);
+            modelMap.put("success", true);
+            modelMap.put("productList", pe.getProductList());
+            modelMap.put("count", pe.getCount());
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errorMsg", "empty pageIndex or pageSize or shopId");
+        }
+        return modelMap;
+    }
+
+    /**
+     * 组合请求参数
+     *
+     * @param shopId
+     * @param productCategoryId
+     * @param productName
+     * @return 组合后的产品信息
+     */
+    private Product compactProductCondition(long shopId, long productCategoryId, String productName) {
+        Product productCondition = new Product();
+        Shop shop = new Shop();
+        shop.setShopId(shopId);
+        productCondition.setShop(shop);
+        // 若有指定类别的要求则添加进去
+        if (productCategoryId != -1) {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.setProductCategoryId(productCategoryId);
+            productCondition.setProductCategory(productCategory);
+        }
+        // 若有商品模糊查询的要求则添加进去
+        if (null != productName) {
+            productCondition.setProductName(productName);
+        }
+        return productCondition;
+    }
 }
