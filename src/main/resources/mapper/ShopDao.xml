@@ -131,6 +131,9 @@
             <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.shopCategoryId">
                 AND s.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
             </if>
+            <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.parent and null != shopCondition.shopCategory.parent.shopCategoryId">
+                AND s.shop_category_id IN (#{shopCondition.shopCategory.parent.shopCategoryId})
+            </if>
             <if test="null != shopCondition.area and null != shopCondition.area.areaId">
                 AND s.area_id = #{shopCondition.area.areaId}
             </if>
@@ -160,6 +163,9 @@
             s.shop_category_id = sc.shop_category_id
             <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.shopCategoryId">
                 AND s.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+            </if>
+            <if test="null != shopCondition.shopCategory and null != shopCondition.shopCategory.parent and null != shopCondition.shopCategory.parent.shopCategoryId">
+                AND s.shop_category_id IN (#{shopCondition.shopCategory.parent.shopCategoryId})
             </if>
             <if test="null != shopCondition.area and null != shopCondition.area.areaId">
                 AND s.area_id = #{shopCondition.area.areaId}

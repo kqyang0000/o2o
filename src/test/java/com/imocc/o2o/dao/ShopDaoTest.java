@@ -72,12 +72,14 @@ public class ShopDaoTest extends BaseTest {
         PersonInfo owner = new PersonInfo();
         owner.setUserId(1L);
         shopCondition.setOwner(owner);
+        ShopCategory parent = new ShopCategory();
+        parent.setShopCategoryId(1L);
         ShopCategory shopCategory = new ShopCategory();
-        shopCategory.setShopCategoryId(1L);
+        shopCategory.setParent(parent);
         shopCondition.setShopCategory(shopCategory);
         Area area = new Area();
         area.setAreaId(1);
-        shopCondition.setArea(area);
+//        shopCondition.setArea(area);
         List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
         int count = shopDao.queryShopCount(shopCondition);
         System.out.println("店铺列表大小：" + shopList.size());
