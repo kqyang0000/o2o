@@ -42,6 +42,7 @@ public class ProductImgDaoTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testCDeleteProductImgByProductId() {
         long productId = 1L;
         int effectedNum = productImgDao.deleteProductImgByProductId(productId);
