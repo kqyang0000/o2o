@@ -3,17 +3,14 @@ package com.imooc.o2o.web.wechat;
 import com.imooc.o2o.dto.UserAccessToken;
 import com.imooc.o2o.dto.WechatUser;
 import com.imooc.o2o.util.wechat.WechatUtil;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sun.org.mozilla.javascript.internal.EcmaError;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * <p>获取关注微信公众号之后的微信用户信息的接口
@@ -29,7 +26,7 @@ import java.io.IOException;
 public class WechatLoginControlelr {
     private static Logger logger = LoggerFactory.getLogger(WechatLoginControlelr.class);
 
-    @RequestMapping(value = "*/logincheck", method = RequestMethod.GET)
+    @RequestMapping(value = "/logincheck", method = RequestMethod.GET)
     public String doGet(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("weixin login get...");
         // 获取微信公众号传输过来的code，通过code可获取到access_token，进而获取用户信息
