@@ -17,8 +17,7 @@ import java.io.PrintWriter;
 public class WechatController {
     private static Logger log = LoggerFactory.getLogger(WechatController.class);
 
-
-    @RequestMapping(method = {RequestMethod.GET})
+    @RequestMapping(method = RequestMethod.GET)
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         log.debug("wechat get...");
         // 微信加密签名
@@ -41,8 +40,9 @@ public class WechatController {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (out != null)
+            if (out != null) {
                 out.close();
+            }
         }
     }
 }
