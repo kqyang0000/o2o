@@ -13,31 +13,49 @@ import java.util.Arrays;
  * @date 2019/4/19 17:32
  */
 public class WechatUser implements Serializable {
-    // 标识该公众号下面的该用户的唯一id
+    /**
+     * 标识该公众号下面的该用户的唯一id
+     */
     @JsonProperty("openid")
     private String openId;
-    // 用户昵称
+    /**
+     * 用户昵称
+     */
     @JsonProperty("nickname")
     private String nickName;
-    // 性别
+    /**
+     * 性别
+     */
     @JsonProperty("sex")
     private int sex;
-    // 省份
+    /**
+     * 省份
+     */
     @JsonProperty("province")
     private String province;
-    // 城市
+    /**
+     * 城市
+     */
     @JsonProperty("city")
     private String city;
-    // 区
+    /**
+     * 区
+     */
     @JsonProperty("country")
     private String country;
-    // 头像图片地址
+    /**
+     * 头像图片地址
+     */
     @JsonProperty("headimgurl")
     private String headImgUrl;
-    // 语言
+    /**
+     * 语言
+     */
     @JsonProperty("language")
     private String language;
-    // 用户权限，这里没什么用
+    /**
+     * 用户权限，这里没什么用
+     */
     @JsonProperty("privilege")
     private String[] privilege;
 

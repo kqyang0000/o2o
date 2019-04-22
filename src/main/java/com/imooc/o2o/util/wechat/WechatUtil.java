@@ -1,10 +1,9 @@
 package com.imooc.o2o.util.wechat;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imooc.o2o.dto.UserAccessToken;
 import com.imooc.o2o.dto.WechatUser;
+import com.imooc.o2o.entity.PersonInfo;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +12,12 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.security.SecureRandom;
 
 /**
@@ -53,6 +54,7 @@ public class WechatUtil {
         // 将json字符串转换成相应对象
         token.setAccessToken(jsonObject.getString("access_token"));
         token.setExpiresIn(jsonObject.getString("expires_in"));
+        token.setOpenId(jsonObject.getString("openid"));
 
         if (null == token) {
             logger.error("获取用户accessToken失败");
@@ -146,5 +148,23 @@ public class WechatUtil {
             logger.error("https request error:{}", e);
         }
         return jsonObject;
+    }
+
+    /**
+     * <p>将WechatUser 里的信息转换成PersonInfo 的信息并返回PersonInfo 实体类
+     *
+     * @param user
+     * @return PersonInfo
+     * @author kqyang
+     * @version 1.0
+     * @date 2019/4/22 13:55
+     */
+    public static PersonInfo getPersonInfoFromRequest(WechatUser user) {
+        PersonInfo personInfo = new PersonInfo();
+        personInfo.setName(user.getNickName());
+        personInfo.setGender(user.getSex() + "");
+        personInfo.setProfileImg(user.getHeadImgUrl());
+        personInfo.setEnableStatus(1);
+        return personInfo;
     }
 }

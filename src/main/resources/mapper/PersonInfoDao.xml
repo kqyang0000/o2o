@@ -39,6 +39,6 @@
         #{userType},
         #{createTime},
         #{lastEditTime},
-        #{enable_status})
+        #{enableStatus})
     </insert>
 </mapper>

@@ -44,6 +44,7 @@ public class WechatAuthServiceImpl implements WechatAuthService {
             if (null != wechatAuth.getPersonInfo() && null == wechatAuth.getPersonInfo().getUserId()) {
                 try {
                     wechatAuth.getPersonInfo().setCreateTime(new Date());
+                    wechatAuth.getPersonInfo().setLastEditTime(new Date());
                     wechatAuth.getPersonInfo().setEnableStatus(1);
                     PersonInfo personInfo = wechatAuth.getPersonInfo();
                     int effectedNum = personInfoDao.insertPersonInfo(personInfo);

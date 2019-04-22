@@ -5,10 +5,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- * 微信请求校验工具类
+ * <p>微信请求校验工具类
+ *
+ * @author kqyang
+ * @version 1.0
+ * @date 2019/4/22 13:54
  */
 public class SignUtil {
-	// 与接口配置信息中的Token要一致
+	/**
+	 * 与接口配置信息中的Token要一致
+	 */
 	private static String token = "o2o";
 
 	/**
