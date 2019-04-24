@@ -2,6 +2,13 @@ package com.imooc.o2o.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * <p>公共获取参数方法
+ *
+ * @author kqyang
+ * @version 1.0
+ * @date 2018/8/30 11:31
+ */
 public class HttpServletRequestUtil {
 
     public static int getInt(HttpServletRequest request, String key) {
