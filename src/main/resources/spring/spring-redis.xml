@@ -37,11 +37,9 @@
 
     <!-- Redis的key操作 -->
     <bean id="jedisKeys" class="com.imooc.o2o.cache.JedisUtil$Keys" scope="singleton">
-        <constructor-arg ref="jedisUtil"/>
     </bean>
 
     <!-- Redis的String操作 -->
     <bean id="jedisStrings" class="com.imooc.o2o.cache.JedisUtil$Strings" scope="singleton">
-        <constructor-arg ref="jedisUtil"/>
     </bean>
 </beans>

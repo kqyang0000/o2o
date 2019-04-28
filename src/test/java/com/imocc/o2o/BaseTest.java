@@ -13,6 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @date 2019/2/15 13:27
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml"})
+@ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml","classpath:spring/spring-redis.xml"})
 public class BaseTest {
 }
