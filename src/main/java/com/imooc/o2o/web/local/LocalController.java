@@ -19,6 +19,7 @@ public class LocalController {
     private String accountbind() {
         return "local/accountbind";
     }
+
     /**
      * 修改密码路由
      *
@@ -27,5 +28,15 @@ public class LocalController {
     @RequestMapping(value = "/changepsw", method = RequestMethod.GET)
     private String changepsw() {
         return "local/changepsw";
+    }
+
+    /**
+     * 登录页路由
+     *
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    private String login() {
+        return "local/login";
     }
 }

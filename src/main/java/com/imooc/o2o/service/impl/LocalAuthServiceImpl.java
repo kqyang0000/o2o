@@ -74,11 +74,11 @@ public class LocalAuthServiceImpl implements LocalAuthService {
                 int effectedNum = localAuthDao.updateLocalAuth(userId, userName, MD5Util.getMd5(password), MD5Util.getMd5(newPassword), new Date());
                 // 判断是否更新成功
                 if (effectedNum <= 0) {
-                    throw new LocalAuthOperationException("更新密码失败");
+                    throw new LocalAuthOperationException("用户名密码错误");
                 }
                 return new LocalAuthExecution(LocalAuthStateEnum.SUCCESS);
             } catch (Exception e) {
-                throw new LocalAuthOperationException("更新密码失败:" + e.toString());
+                throw new LocalAuthOperationException(e.getMessage());
             }
         } else {
             return new LocalAuthExecution(LocalAuthStateEnum.NULL_AUTH_INFO);

@@ -111,7 +111,7 @@ public class LocalAuthController {
                 }
             } catch (Exception e) {
                 modelMap.put("success", false);
-                modelMap.put("errorMsg", e.toString());
+                modelMap.put("errorMsg", e.getMessage());
                 return modelMap;
             }
         } else {
