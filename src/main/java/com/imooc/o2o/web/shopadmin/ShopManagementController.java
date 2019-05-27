@@ -243,11 +243,7 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopList(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>(16);
-        PersonInfo user = new PersonInfo();
-        user.setUserId(1L);
-        user.setName("张三");
-        request.getSession().setAttribute("user", user);
-        user = (PersonInfo) request.getSession().getAttribute("user");
+        PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
         try {
             Shop shopCondition = new Shop();
             shopCondition.setOwner(user);
@@ -255,6 +251,8 @@ public class ShopManagementController {
             modelMap.put("success", true);
             modelMap.put("user", user);
             modelMap.put("shopList", se.getShopList());
+            // 列出店铺成功之后，将店铺放入session中作为权限验证依据，即该账号只能操作它自己的店铺
+            request.getSession().setAttribute("shopList", se.getShopList());
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errorMsg", e.getMessage());

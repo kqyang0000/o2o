@@ -33,4 +33,26 @@
 
     <!-- 扫描web相关的bean -->
     <context:component-scan base-package="com.imooc.o2o.web"/>
+
+    <!-- 权限拦截器 -->
+    <mvc:interceptors>
+        <!-- 校验是否已经登录了店家管理系统的拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shopadmin/**"/>
+            <bean id="shopInterceptor" class="com.imooc.o2o.interceptor.shopadmin.ShopLoginInterceptor"/>
+        </mvc:interceptor>
+        <!-- 校验是否对该店铺有操作权限的拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shopadmin/**"/>
+            <mvc:exclude-mapping path="/shopadmin/shoplist"/>
+            <mvc:exclude-mapping path="/shopadmin/getshoplist"/>
+            <mvc:exclude-mapping path="/shopadmin/getshopinitinfo"/>
+            <mvc:exclude-mapping path="/shopadmin/registershop"/>
+            <mvc:exclude-mapping path="/shopadmin/shopoperation"/>
+            <mvc:exclude-mapping path="/shopadmin/shopmanage"/>
+            <mvc:exclude-mapping path="/shopadmin/getshopmanagementinfo"/>
+            <bean id="shopPermissionInterceptor"
+                  class="com.imooc.o2o.interceptor.shopadmin.ShopPermissionInterception"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
