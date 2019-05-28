@@ -40,6 +40,10 @@ public class Product {
      */
     private Integer priority;
     /**
+     * 商品积分
+     */
+    private Integer point;
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -121,6 +125,14 @@ public class Product {
         this.priority = priority;
     }
 
+    public Integer getPoint() {
+        return point;
+    }
+
+    public void setPoint(Integer point) {
+        this.point = point;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -167,5 +179,25 @@ public class Product {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", imgAddr='" + imgAddr + '\'' +
+                ", normalPrice='" + normalPrice + '\'' +
+                ", promotionPrice='" + promotionPrice + '\'' +
+                ", priority=" + priority +
+                ", point=" + point +
+                ", createTime=" + createTime +
+                ", lastEditTime=" + lastEditTime +
+                ", enableStatus=" + enableStatus +
+                ", productImgList=" + productImgList +
+                ", productCategory=" + productCategory +
+                ", shop=" + shop +
+                '}';
     }
 }

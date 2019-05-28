@@ -10,6 +10,7 @@
         <result column="normal_price" property="normalPrice"/>
         <result column="promotion_price" property="promotionPrice"/>
         <result column="priority" property="priority"/>
+        <result column="point" property="point"/>
         <result column="create_time" property="createTime"/>
         <result column="last_edit_time" property="lastEditTime"/>
         <result column="enable_status" property="enableStatus"/>
@@ -42,6 +43,7 @@
         normal_price,
         promotion_price,
         priority,
+        point,
         create_time,
         last_edit_time,
         enable_status,
@@ -54,6 +56,7 @@
         #{normalPrice},
         #{promotionPrice},
         #{priority},
+        #{point},
         #{createTime},
         #{lastEditTime},
         #{enableStatus},
@@ -71,6 +74,7 @@
         p.normal_price,
         p.promotion_price,
         p.priority,
+        p.point,
         p.create_time,
         p.last_edit_time,
         p.enable_status,
@@ -100,6 +104,7 @@
             <if test="null != normalPrice">normal_price=#{normalPrice},</if>
             <if test="null != promotionPrice">promotion_price=#{promotionPrice},</if>
             <if test="null != priority">priority=#{priority},</if>
+            <if test="null != point">point=#{point},</if>
             <if test="null != lastEditTime">last_edit_time=#{lastEditTime},</if>
             <if test="null != enableStatus">enable_status=#{enableStatus},</if>
             <if test="null != productCategory and null != productCategory.productCategoryId">
@@ -119,6 +124,7 @@
         normal_price,
         promotion_price,
         priority,
+        point,
         create_time,
         last_edit_time,
         enable_status,
