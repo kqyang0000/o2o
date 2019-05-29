@@ -25,7 +25,7 @@ $(function () {
                     }
                     // 拼接每件商品的行信息
                     tempHtml += "<div class='row row-product'><div class='col-33'>" + item.productName
-                        + "</div><div class='col-20'>" + item.priority
+                        + "</div><div class='col-20'>" + item.point
                         + "</div><div class='col-40'><a href='#' class='edit' data-id='" + item.productId
                         + "' data-status='" + item.enableStatus + "'>编辑</a><a href='#' class='status' data-id='" + item.productId
                         + "' data-status='" + contrayStatus + "'>" + textOp + "</a><a href='#' class='preview' data-id='" + item.productId

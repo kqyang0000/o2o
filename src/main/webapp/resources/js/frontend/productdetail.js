@@ -7,6 +7,7 @@ $(function () {
             var product = data.product;
             $("#product-img").attr("src", product.imgAddr);
             $("#product-time").text(new Date(product.lastEditTime).Format("yyyy-MM-dd"));
+            $("#point").text("购买可得 " + product.point + " 积分");
             $("#promotion-price").text("￥" + product.promotionPrice);
             $("#title_product-name").text(product.productName);
             $("#product-desc").text(product.productDesc);

@@ -26,7 +26,7 @@
         </association>
         <collection property="productImgList" column="product_id" ofType="com.imooc.o2o.entity.ProductImg">
             <id column="product_img_id" property="productImgId"/>
-            <result column="img_addr" property="imgAddr"/>
+            <result column="product_img_addr" property="imgAddr"/>
             <result column="img_desc" property="imgDesc"/>
             <result column="priority" property="priority"/>
             <result column="create_time" property="createTime"/>
@@ -81,7 +81,7 @@
         p.product_category_id,
         p.shop_id,
         pm.product_img_id,
-        pm.img_addr,
+        pm.img_addr product_img_addr,
         pm.img_desc,
         pm.priority,
         pm.create_time
